@@ -163,10 +163,10 @@ void up(int pin, int dir) { //pin0 is horizontal, pin1 is vertical
 				case 0: digitalWrite(13, LOW);
 						digitalWrite(12, LOW);
 					break;
-				case 1: digitalWrite(13, LOW);
+				case 1: digitalWrite(13, HIGH);
 						analogWrite(12, 128);
 					break;
-				case 2: digitalWrite(13, HIGH);
+				case 2: digitalWrite(13, LOW);
 						analogWrite(12, 128);
 					break;
 				default: break;
