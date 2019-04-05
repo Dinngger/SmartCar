@@ -150,27 +150,29 @@ void up(int pin, int dir) { //pin0 is horizontal, pin1 is vertical
 				case 0: digitalWrite(7, LOW);
 						digitalWrite(4, LOW);
 					break;
-				case 1: digitalWrite(7, LOW);
+				case 1: digitalWrite(7, HIGH);
 						analogWrite(4, 128);
 					break;
-				case 2: digitalWrite(7, HIGH);
+				case 2: digitalWrite(7, LOW);
 						analogWrite(4, 128);
 					break;
 				default: break;
 			}
+			//TCCR0B = (TCCR0B & 0xf8) | 2;
 		} else {
 			switch (dir) {
 				case 0: digitalWrite(13, LOW);
 						digitalWrite(12, LOW);
 					break;
-				case 1: digitalWrite(13, HIGH);
+				case 1: digitalWrite(13, LOW);
 						analogWrite(12, 128);
 					break;
-				case 2: digitalWrite(13, LOW);
+				case 2: digitalWrite(13, HIGH);
 						analogWrite(12, 128);
 					break;
 				default: break;
 			}
+			TCCR1B = (TCCR0B & 0xf8) | 2;
 		}
 	}
 }
@@ -335,12 +337,14 @@ void loop()
 			0, //theta
 			255, //speed
 			0, //delay
-			{0, 0}
+			{0, 0}	//24 is full
 		};
 		tasks.push(goToPoint);
-		goToPoint = {0, 0, 0, 255, 0, {0, 10}};
+		goToPoint = {-10, 0, 0, 255, 0, {0, 0}};
 		tasks.push(goToPoint);
-		goToPoint = {0, 0, 0, 255, 0, {10, 0}};
+		goToPoint = {10, 10, 0, 255, 0, {0, 0}};
+		tasks.push(goToPoint);
+		goToPoint = {20, 0, 0, 255, 0, {0, 0}};
 		tasks.push(goToPoint);
 		state.state = 1;
 	}
